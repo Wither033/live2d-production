@@ -1,4 +1,4 @@
 interface:
-  display_name: "Live2D 角色制作与面捕"
+  display_name: "Live2D 角色制作工具包"
   short_description: "从立绘拆件到 Cubism 动画与 VTube Studio 真人面捕的整套制作流程"
   default_prompt: "使用 $live2d-production 从我提供的素材接续，由 Astra 指挥、Terra ultra 操作 Photoshop、Cubism 和 VTube Studio，制作可面捕的模型。"

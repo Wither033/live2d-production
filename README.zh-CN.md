@@ -1,10 +1,16 @@
-# Live2D 角色制作与面捕
+# Live2D 角色制作工具包
 
-[English](README.md) · **简体中文**
+**Live2D Production Kit**：通过 Photoshop、Cubism 和 VTube Studio 制作可面捕角色的 Codex 技能。
 
-从一张角色立绘开始：在 Photoshop 里拆出可动部件，在 Live2D Cubism 里做出眨眼和转头，最后让 VTube Studio 里的角色跟着你的脸动。手上已经有分层 PSD、Cubism 工程或导出包，也可以从那里接着做。
+[English](README.md) · **简体中文** · [版本发布](https://github.com/Wither033/live2d-production/releases) · [技能指南](skills/live2d-production/SKILL.md)
 
-`$live2d-production` 是一个 Codex 技能。Astra 决定怎么做、做到哪一步；同一名 Terra ultra 连续操作三款桌面软件。你可以委托整套模型，也可以只拿一份可以开始绑定的 PSD。
+## 功能亮点
+
+- **从立绘到角色表演。** 串联角色设计、拆件补画、网格绑定、动作制作与真人面捕。
+- **接续已有成果。** 从 PNG、分层 PSD、Cubism 工程或运行时包开始，推进当前阶段。
+- **保留可编辑源文件。** 按所需阶段交付母档、载入 PSD、Cubism 工程及导出素材。
+- **协同操作桌面软件。** Astra 规划与验收，由同一名 Terra ultra 连续操作 Photoshop、Cubism 和 VTube Studio。
+- **用 Python 预检文件。** 通过附带的只读脚本检查 PSD 结构与运行时文件引用。
 
 ## 安装
 
@@ -14,39 +20,110 @@
 $skill-installer 安装这个技能：https://github.com/Wither033/live2d-production/tree/main/skills/live2d-production
 ```
 
-也可以[下载技能 ZIP](https://github.com/Wither033/live2d-production/releases/latest/download/live2d-production.zip)，把里面的 `live2d-production` 文件夹解压到 `$CODEX_HOME/skills/`（默认是 `~/.codex/skills/`）。打开该文件夹，第一层就应当能看到 [`SKILL.md`](skills/live2d-production/SKILL.md)。
+使用发布版本时，[下载技能 ZIP](https://github.com/Wither033/live2d-production/releases/latest/download/live2d-production.zip)，把里面的 `live2d-production` 文件夹解压到 `$CODEX_HOME/skills/`（默认是 `~/.codex/skills/`）。
 
-桌面制作需要 Windows 版 Codex 可调用 Astra（`gpt-6-astra`）、Terra（`gpt-6.1-terra`，推理强度 `ultra`）及原生 Computer Use，并已安装本阶段要用的软件。需要画新素材时才用生图；真人面捕需要电脑摄像头或受支持的手机，以及镜头前的表演者。操作指南和预检提示均为中文。
-
-## 拿一张 PNG 试试
-
-在 Astra 会话里附上立绘，直接说：
-
-> 用 `$live2d-production` 把这张立绘拆成分层 PSD。保留原来的脸和服装；眼睑后方的虹膜要完整，之后眼珠还要移动。交付可编辑母档和 Cubism 载入 PSD，到这里就停，不开始绑定。
-
-如果立绘已经拆好了，点名现有文件和需要的结果即可：
-
-- **已有可编辑模型：**“用 `$live2d-production` 接着做我的 `.cmo3`。保留我调过的眼睑，让点头回正时柔和一点，再导出更新后的模型。”
-- **已有运行时包：**“用 `$live2d-production` 把这份 `.model3.json` 导出包载入 VTube Studio，接上电脑摄像头面捕，保留我原来的快捷键。”
-
-## 每一步拿到什么
-
-| 阶段 | 交付物 | 怎么看效果 |
-| --- | --- | --- |
-| [角色设定与立绘](skills/live2d-production/references/concept-to-master.md) | 动作需求、定稿的中性立绘 | 脸型、轮廓和服装仍符合设定。已有定稿就直接拆，不重新生图。 |
-| [Photoshop 拆分](skills/live2d-production/references/photoshop-to-psd.md) | 可编辑的拆分母档、单独的 Cubism 载入 PSD | 移开刘海，下面该露出的部分已经补全；放回原位，仍与立绘贴合。 |
-| [Cubism 网格与绑定](skills/live2d-production/references/rig-and-motion.md) | 带网格、变形器、剪贴和参数关键形的 `.cmo3` | 闭眼时是眼睑合拢，不是虹膜被压扁；转头时脖子不脱离衣领。 |
-| [物理与动作](skills/live2d-production/references/rig-and-motion.md#制作可播放动作) | 按需设置的物理、可编辑动作源和导出的 `.motion3.json` | 待机循环首尾不跳；点头等单次动作结束后，面捕能重新接管相应参数。 |
-| [VTube Studio 面捕](skills/live2d-production/references/runtime-to-tracking.md) | 运行时整包、参数映射、动作快捷键与面捕配置 | 对着镜头分别眨左右眼、转头、张嘴。仅仅载入模型不能确认真人跟踪效果。 |
-
-[部件运动表](skills/live2d-production/assets/parts-plan.tsv)把“哪一件要动”和“它后面要补什么”放在同一行。[桌面交接指南](skills/live2d-production/references/desktop-handoff.md)说明如何从已保存的文件接续，避免两个人同时改同一个模型。
-
-## 不开 Cubism，也能先查导出包缺了什么
-
-在仓库根目录，把下面的路径换成自己的模型索引。[只读预检脚本](skills/live2d-production/scripts/preflight.py)只需 Python 3.9+，不用安装第三方库：
-
-```sh
-python -X utf8 skills/live2d-production/scripts/preflight.py runtime "export/Mira/Mira.model3.json"
+```text
+$CODEX_HOME/skills/live2d-production/SKILL.md
 ```
 
-脚本输出 JSON。比如少了一个动作文件，报错会指出动作组、组内序号和文件路径。要查载入 PSD，就把 `runtime` 改成 `psd`，并传入 PSD 路径。文件结构用脚本查，动作流畅度看实际导出的模型，面捕效果用真人试。
+安装后使用 `$live2d-production` 调用技能。
+
+### 环境准备
+
+| 组件 | 用途 |
+| --- | --- |
+| 支持原生 Computer Use 的 Windows Codex | 桌面制作 |
+| Astra（`gpt-6-astra`） | 规划、协调与验收 |
+| Terra（`gpt-6.1-terra`，`ultra` 推理强度） | 作为唯一桌面操作者接续各软件工序 |
+| [Adobe Photoshop 官方产品页](https://www.adobe.com/products/photoshop.html) | 立绘拆件、隐藏区域补画、PSD 组装 |
+| [Live2D Cubism Editor 官方下载](https://www.live2d.com/en/cubism/download/editor/) | 网格、绑定、物理、动画与导出 |
+| VTube Studio | 模型设置、参数映射与真人面捕 |
+| 电脑摄像头或受支持的手机，以及镜头前的表演者 | 面捕校准与验证 |
+| Python 3.9+ | 使用标准库独立运行文件预检 |
+
+按所需阶段准备软件及许可证。需要绘制新素材时使用生图能力。制作指南和预检提示均为中文。
+
+## 快速开始
+
+### 把立绘拆成分层 PSD
+
+在 Astra 会话里附上立绘：
+
+```text
+用 $live2d-production 把这张立绘拆成分层 PSD。
+保留原来的脸和服装，眼睑后方的虹膜保持完整。
+交付可编辑母档和 Cubism 载入 PSD。
+本次做到 PSD 阶段。
+```
+
+### 接续可编辑模型
+
+```text
+用 $live2d-production 接着做我的 .cmo3。
+保留我调过的眼睑，让点头回正时柔和一点。
+保存更新后的可编辑工程并导出模型。
+```
+
+### 接入真人面捕
+
+```text
+用 $live2d-production 处理这份 .model3.json 运行时包。
+载入 VTube Studio，接上电脑摄像头面捕。
+保留现有快捷键，并指导我完成真人校准。
+```
+
+说明源文件、需要保留的细节和交付终点。修改网格与绑定时，提供对应的可编辑 Cubism 工程。
+
+## 制作流程
+
+| 起点 | 工序 | 交付物 |
+| --- | --- | --- |
+| 文字设定 | [角色设计与立绘](skills/live2d-production/references/concept-to-master.md) | 动作需求、定稿中性立绘 |
+| 立绘或散件 | [Photoshop 拆分](skills/live2d-production/references/photoshop-to-psd.md) | 可编辑母档、Cubism 载入 PSD |
+| 分层 PSD | [Cubism 绑定](skills/live2d-production/references/rig-and-motion.md) | 带网格、变形器、剪贴和参数关键形的 `.cmo3` |
+| 可编辑 Cubism 工程 | [物理与动画](skills/live2d-production/references/rig-and-motion.md#制作可播放动作) | 按需设置的物理、可编辑动作源、`.motion3.json` |
+| 运行时包 | [VTube Studio 配置](skills/live2d-production/references/runtime-to-tracking.md) | 模型整包、参数映射、快捷键与真人面捕配置 |
+
+[部件运动表](skills/live2d-production/assets/parts-plan.tsv)记录每个可动件及其背后需要补画的区域。[桌面交接指南](skills/live2d-production/references/desktop-handoff.md)将当前源文件、已保存进度和下一步集中记录，方便接续。
+
+## 文件预检
+
+在仓库根目录运行，将示例路径替换为自己的文件：
+
+```sh
+# 检查 Cubism 运行时包
+python -X utf8 skills/live2d-production/scripts/preflight.py runtime "export/Mira/Mira.model3.json"
+
+# 检查 Cubism 载入 PSD
+python -X utf8 skills/live2d-production/scripts/preflight.py psd "art/Mira-import.psd"
+```
+
+脚本输出包含 `ok`、文件路径和检查结果的 JSON。退出码 `0` 表示文件检查通过，`1` 表示检测到错误。
+
+| 检查项 | 覆盖内容 |
+| --- | --- |
+| 运行时包 | 包内相对引用、必需文件、MOC3 签名、PNG 文件头、JSON 可读性 |
+| PSD | 文件头、主要数据区、RGB 模式、8 位深度 |
+
+### 验收成果
+
+1. **文件：**运行预检，处理报告中的路径或格式问题。
+2. **画面与动作：**检查 PSD 图层与色彩设置，再试载导出模型，查看闭眼、转头、颈部与衣领衔接、动作过渡。
+3. **真人面捕：**在 VTube Studio 中校准，分别验证左右眼、头部运动和张嘴效果。
+
+## 文档
+
+- [技能指南](skills/live2d-production/SKILL.md)：阶段选择、角色分工与交付规则。
+- [制作参考](skills/live2d-production/references/)：立绘、Photoshop、Cubism、VTube Studio 与桌面交接。
+- [部件运动表](skills/live2d-production/assets/parts-plan.tsv)：可动件与隐藏区域规划。
+- [预检脚本](skills/live2d-production/scripts/preflight.py)：独立文件结构检查。
+
+## 开发
+
+运行[预检测试](skills/live2d-production/tests/test_preflight.py)：
+
+```sh
+python -X utf8 -m unittest discover -s skills/live2d-production/tests -p "test_*.py"
+```
+
+测试集使用合成 PSD 和运行时样本验证文件检查逻辑。
